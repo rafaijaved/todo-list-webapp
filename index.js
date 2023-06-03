@@ -2,7 +2,25 @@ const todoInput = document.querySelector(".todo-input");
 const addBtn = document.querySelector(".add-button");
 const todoList = document.querySelector(".list");
 const filterOption = document.querySelector(".filter-list");
-const todoPlaceholder = document.querySelector(".todo-placeholder")
+const todoPlaceholder = document.querySelector(".todo-placeholder");
+let date = document.querySelector(".date");
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const todayDate = new Date();
+let currentDate = todayDate.getDate();
+date.innerText = currentDate + " " + monthNames[todayDate.getMonth()];
 
 addBtn.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
@@ -33,7 +51,7 @@ function addTodo(event) {
 
   todoList.appendChild(newDiv);
   todoInput.value = "";
-  todoPlaceholder.remove()
+  todoPlaceholder.remove();
 }
 
 function deleteCheck(e) {
