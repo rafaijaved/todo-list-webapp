@@ -3,6 +3,9 @@ const addBtn = document.querySelector(".add-button");
 const todoList = document.querySelector(".list");
 const filterOption = document.querySelector(".filter-list");
 const todoPlaceholder = document.querySelector(".todo-placeholder");
+const quoteText = document.querySelector(".quote");
+const quoteAuthor = document.querySelector(".author");
+const quoteButton = document.querySelector(".quote-btn");
 let date = document.querySelector(".date");
 const monthNames = [
   "January",
@@ -25,6 +28,16 @@ date.innerText = currentDate + " " + monthNames[todayDate.getMonth()];
 addBtn.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("change", filterTodo);
+quoteButton.addEventListener("click", randomQuote);
+
+function randomQuote() {
+  fetch("https://api.quotable.io/random")
+    .then((res) => res.json())
+    .then((result) => {
+      quoteText.innerText = result.content;
+      quoteAuthor.innerText = result.author;
+    });
+}
 
 function addTodo(event) {
   event.preventDefault();
