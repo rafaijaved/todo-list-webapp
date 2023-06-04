@@ -311,7 +311,7 @@ h4 {
   font-style: italic;
 }
 
-.todo-item {
+.todo {
   display: flex;
   align-items: center;
   background-color: var(--white);

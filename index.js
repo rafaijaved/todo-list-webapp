@@ -25,6 +25,7 @@ const todayDate = new Date();
 let currentDate = todayDate.getDate();
 date.innerText = currentDate + " " + monthNames[todayDate.getMonth()];
 
+document.addEventListener("DOMContentLoaded", getTodos)
 addBtn.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("change", filterTodo);
@@ -43,12 +44,14 @@ function addTodo(event) {
   event.preventDefault();
 
   const newDiv = document.createElement("div");
-  newDiv.classList.add("todo-item");
+  newDiv.classList.add("todo");
 
   const newTodo = document.createElement("li");
   newTodo.classList.add("new-todo");
   newTodo.innerText = todoInput.value;
   newDiv.appendChild(newTodo);
+
+  saveLocalTodo(todoInput.value)
 
   const completeBtn = document.createElement("button");
   completeBtn.classList.add("complete-btn");
@@ -104,4 +107,49 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+function saveLocalTodo(todo) {
+  let todos;
+  if(localStorage.getItem("todos") === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"))
+  }
+
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+function getTodos() {
+  let todos;
+  if(localStorage.getItem("todos") === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"))
+  }
+
+  todos.forEach(function(todo){
+    const newDiv = document.createElement("div");
+  newDiv.classList.add("todo");
+
+  const newTodo = document.createElement("li");
+  newTodo.classList.add("new-todo");
+  newTodo.innerText = todo;
+  newDiv.appendChild(newTodo);
+
+  const completeBtn = document.createElement("button");
+  completeBtn.classList.add("complete-btn");
+  completeBtn.innerHTML =
+    '<i class="fa-solid fa-circle-check fa-xl" style="color: #1e1e1e;"></i>';
+  newDiv.appendChild(completeBtn);
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.innerHTML =
+    '<i class="fa-solid fa-trash fa-lg" style="color: #1e1e1e;"></i>';
+  newDiv.appendChild(deleteBtn);
+
+  todoList.appendChild(newDiv);
+  })
 }
