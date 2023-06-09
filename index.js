@@ -37,6 +37,9 @@ function randomQuote() {
       quoteText.innerText = result.content;
       quoteAuthor.innerText = result.author;
     });
+
+    
+  
 }
 
 function addTodo(event) {
@@ -106,6 +109,17 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+function saveLocalQuotes(quote){
+  let quotes;
+  if(localStorage.getItem("quotes") === null) {
+    quotes = []
+  } else {
+    quotes = JSON.parse(localStorage.getItem("quotes"))
+  }
+
+  localStorage.setItem("quotes", JSON.stringify(quote))
 }
 
 function saveLocalTodo(todo) {
